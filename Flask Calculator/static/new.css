@@ -1,0 +1,342 @@
+body {
+    font-family: Arial,Helvetica, sans-serif;
+}
+
+/* h1{
+    background: -webkit-linear-gradient(0deg, #000000 0%, #48abe0 100%);
+    
+    -webkit-text-fill-color: transparent;
+} */
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+}
+
+.item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 10px 10px 15px lightblue;
+    border-style: outset;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    
+}
+
+.item:nth-child(odd) {
+    background-color: white;
+}
+
+.item:hover{
+    background-color: #CDF5FD;
+    transform: scale(1.1);
+    
+}
+
+.item-title {
+    height: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.item-price {
+    margin-top: 20px;
+    height: fit-content;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 55px;
+    color: #001133;
+    text-shadow: 2px 2px #080808;
+    
+}
+
+.item-button {
+    height: 15px;
+    width: 100px;
+    line-height: 15px;
+    text-decoration: underline;
+    font-size: 15px;
+}
+
+.inline-all-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+.full-grid-container{
+    height: fit-content;
+    width: 900px;
+    /* border: 2px solid #008CBA; */
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 5px;
+    
+  }
+
+.grid-details-container{
+    
+    border: solid 2px #89CFF3;
+    border-radius: 5px;
+    margin-top: 0px;
+    box-shadow: 10px 10px 15px lightblue;
+    border-style: inset;
+}
+
+
+.grid-button:hover{
+    color: black;
+}
+
+.table-button:hover{
+    color: black;
+}
+
+.download-csv-button:hover{
+    color: black;
+}
+
+
+.outline-all-container{
+    /* Adjust the height as needed */
+    border: 20px solid transparent; /* Set the border width and make it transparent */
+    border-image: linear-gradient(90deg, #000000 0%, #48abe0 100%);
+    border-image-slice: 1; 
+    /* padding: 10px; */
+}
+
+.item-details{
+    padding-left:10px;
+}
+
+.item-details-title{
+    margin-top: 0px;
+    background-color: #00A9FF;
+    padding: 10px;
+    color: white;
+}
+
+
+
+/* CSS */
+.div1{
+    display: block;
+    padding: 20px;
+    margin-bottom: 10px;
+    height: fit-content;
+} 
+
+.div2{
+    display: none;
+    padding: 20px;
+    margin-bottom: 10px;
+    height: fit-content;
+    
+}
+
+.div3{
+    display: none;
+    height: fit-content; 
+    padding: 20px;
+    margin-bottom: 10px;
+    /* text-align:right; */
+}
+
+.div3-header{
+    text-align: left;
+}
+
+h2 {
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    box-shadow:rgba(0, 0, 0, .3) 0 5px 10px ;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    
+}
+
+th {
+    /* background-color: #89CFF3; */
+    background-image: linear-gradient(#0dccea, #0d70ea);
+}
+  
+tr:hover {
+      background-color: #f5f5f5;
+    }
+    
+    /* Excel-like styling */
+    td {
+        
+        overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+  }
+  
+  /* Optional: Add some additional styling for specific columns */
+  td:nth-child(1), th:nth-child(1) {
+      min-width: 150px;
+    }
+    
+    td:nth-child(2), th:nth-child(2) {
+      min-width: 100px;
+    }
+
+    .header{
+        background: -webkit-linear-gradient(0deg, #000000 0%, #48abe0 100%);
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+        
+    }
+    
+    
+    .button-container {
+        display: flex; /* Make the container a flex container */
+    justify-content: left; /* Center the flex items horizontally */
+    background-color: #ddd;
+     /* Add some margin if needed */
+    }
+    
+    .button-container button:active {
+        background-image: #ccc;
+    }
+    
+    .button-container button{
+        padding:10px 22px;
+        background-image: linear-gradient(#0dccea, #0d70ea);
+    border: 0;
+    /* border-radius: 4px; */
+    box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: Montserrat,sans-serif;
+    font-size: .9em;
+    /* margin: 5px; */
+    
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+
+/* Style the dropdown button */
+/* .tree-map-button {
+    padding: 10px;
+    background-color: #4CAF50; /* Green background color 
+    color: white;
+    border: none;
+    cursor: pointer;
+  } */
+  
+  /* Style the dropdown container (position it relative and hide its overflow) */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Style the dropdown content (hidden by default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9; /* Light grey background color */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  /* Style the dropdown links */
+  .dropdown-content a {
+    color: black;
+    font-size: x-small;
+    padding:10px 22px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color on hover */
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Show the dropdown content when the button is clicked */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .div4{
+    display: none;
+    height: fit-content; 
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+/* .table-button{
+    padding:10px 22px;
+    background-image: linear-gradient(#0dccea, #0d70ea);
+    border: 0;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: Montserrat,sans-serif;
+    font-size: .9em;
+    margin: 5px; 
+    
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+     touch-action: manipulation;
+    } */
+
+/* .download-csv-button{
+        padding:10px 22px;
+        background-image: linear-gradient(#0dccea, #0d70ea);
+        border: 0;
+        border-radius: 4px; 
+        box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        font-family: Montserrat,sans-serif;
+        font-size: .9em;
+        margin: 5px; 
+        
+        text-align: center;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    } */
+
+/* .grid-button{
+            padding:10px 22px;
+            background-image: linear-gradient(#0dccea, #0d70ea);
+            border: 0;
+            border-radius: 4px; 
+            box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            font-family: Montserrat,sans-serif;
+            font-size: .9em;
+            margin: 5px; 
+            
+            text-align: center;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+    } */

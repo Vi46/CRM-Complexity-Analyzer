@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salesforce Report</title>
+
+
+  <link rel="stylesheet" href="../static/new.css">
+</head>
+<body>
+  <div class="header">
+    
+    <div>
+    <img src="../static/ris-logo-white.png" alt="salesforce" width="140" height="60" ></div>
+    <div >
+    <h1  style="color: white; font-weight: 900;margin-top: 0px; text-align: right;margin-right: 90px;">Org Details</h1>
+    <p style="color: white; font-weight: 600; font-size: larger; text-align: right;">Username: {{username}}</p></div>
+  </div>
+  <div class="outline-all-container">
+    <div class="button-container">
+  <button class="grid-button" onclick="gridClick()">Grid</button>
+  <button class="table-button" onclick="tableClick()">Table</button>
+  <!-- <button class="tree-map-button" onclick="treeMapClick()">Tree View</button> -->
+  <div class="dropdown">
+    <button class="tree-map-button" onclick="treeMapClick()">Tree View</button>
+    <div class="dropdown-content">
+      <!-- Add your dropdown items here -->
+      <a href="#" onclick="treeMapCountViewClick()">Count View </a>
+      <a href="#" onclick="treeMapComplexityViewClick()">Complexity View </a>
+      
+    </div>
+  </div>
+  <form action="{{ url_for('download_csv') }}" method="get">
+    <button type="submit" class="download-csv-button">Download </button>
+</form>
+</div>
+  <div class="div2" id="div2">
+    <h2>Salesforce Report</h2>
+  <table>
+      <tr>
+          <th>Type</th>
+          <th>Count</th>
+          <th>Rating</th>
+          <th>Complexity</th>
+      </tr>
+      <tr>
+        <td>Apex Classes</td>
+        <td>{{ apex_class_count }}</td>
+        <td>{{apex_class_rating[0]}}</td>
+        <td>{{apex_class_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Flows</td>
+        <td>{{ flow_count }}</td>
+        <td>{{flow_rating[0]}}</td>
+        <td>{{flow_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Apex Triggers</td>
+        <td>{{ apex_trigger_count }}</td>
+        <td>{{trigger_rating[0]}}</td>
+        <td>{{trigger_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Lightning Web Components</td>
+        <td>{{ lightning_component_count }}</td>
+        <td>{{lwc_rating[0]}}</td>
+        <td>{{lwc_rating[1]}}</td>
+      </tr> 
+      <tr>
+        <td>Custom Objects</td>
+        <td>{{ custom_object_count }}</td>
+        <td>{{customObject_rating[0]}}</td>
+        <td>{{customObject_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Custom Permission Sets</td>
+        <td>{{ custom_permission_set_count }}</td>
+        <td>{{customPermissionSet_rating[0]}}</td>
+        <td>{{customPermissionSet_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Custom Labels</td>
+        <td>{{ custom_labels_count }}</td>
+        <td>{{customlabel_rating[0]}}</td>
+        <td>{{customlabel_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Custom tabs</td>
+        <td>{{ custom_tab_count }}</td>
+        <td>{{customtab_rating[0]}}</td>
+        <td>{{customtab_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Roles</td>
+        <td>{{ role_count }}</td>
+        <td>{{role_rating[0]}}</td>
+        <td>{{role_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Global Value Sets</td>
+        <td>{{ global_value_set_count }}</td>
+        <td>{{global_value_set_rating[0]}}</td>
+        <td>{{global_value_set_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Custom Applications</td>
+        <td>{{ Custom_Application_count }}</td>
+        <td>{{customApplication_rating[0]}}</td>
+        <td>{{customApplication_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Custom Notification Types</td>
+        <td>{{ Custom_Notification_Type_count }}</td>
+        <td>{{customNotification_rating[0]}}</td>
+        <td>{{customNotification_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Page Layouts</td>
+        <td>{{ page_layout_count }}</td>
+        <td>{{page_rating[0]}}</td>
+        <td>{{page_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Profiles</td>
+        <td>{{ Profile_count }}</td>
+        <td>{{Profile_rating[0]}}</td>
+        <td>{{Profile_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>WorkFlowFieldUpdates </td>
+        <td>{{ WorkFlow_FieldUpdate_count }}</td>
+        <td>{{WorkFlow_FieldUpdate_rating[0]}}</td>
+        <td>{{WorkFlow_FieldUpdate_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>workFlow_alerts </td>
+        <td>{{ workFlow_alert_count }}</td>
+        <td>{{workFlow_alert_rating[0]}}</td>
+        <td>{{workFlow_alert_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>ContentAssets </td>
+        <td>{{ ContentAsset_count }}</td>
+        <td>{{ContentAsset_rating[0]}}</td>
+        <td>{{ContentAsset_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>flexipages</td>
+        <td>{{ flexipage_count }}</td>
+        <td>{{flexipage_rating[0]}}</td>
+        <td>{{flexipage_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>DuplicateRules </td>
+        <td>{{ DuplicateRule_count }}</td>
+        <td>{{DuplicateRule_rating[0]}}</td>
+        <td>{{DuplicateRule_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>MatchingRules </td>
+        <td>{{ MatchingRule_count }}</td>
+        <td>{{MatchingRule_rating[0]}}</td>
+        <td>{{MatchingRule_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>EmailTemplates </td>
+        <td>{{ EmailTemplate_count }}</td>
+        <td>{{EmailTemplate_rating[0]}}</td>
+        <td>{{EmailTemplate_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>ProcessBuilders </td>
+        <td>{{ ProcessDefinition_count }}</td>
+        <td>{{ProcessDefinition_rating[0]}}</td>
+        <td>{{ProcessDefinition_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>Queues </td>
+        <td>{{ Group_count }}</td>
+        <td>{{Group_rating[0]}}</td>
+        <td>{{Group_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>StaticResources </td>
+        <td>{{ StaticResource_count }}</td>
+        <td>{{StaticResource_rating[0]}}</td>
+        <td>{{StaticResource_rating[1]}}</td>
+      </tr>
+      <tr>
+        <td>VeevaObject</td>
+        <td>{{ VeevaObject_count }}</td>
+        <td>{{VeevaObject_rating[0]}}</td>
+        <td>{{VeevaObject_rating[1]}}</td>
+      </tr>
+  </table>
+  </div>
+  <!-- div 3 -->
+  <div class="div3" id="div3">
+    
+    <p style="text-align:left; font-size: 20px; font-weight: bold;">Counts Treemap</p>
+    
+    <!-- Container for the treemap -->
+    {{ treemap_html|safe }}
+  <p style="text-align:right; font-weight: bolder;">*Based on count treemap is been displayed</p>
+  </div>
+  <div class="div4" id="div4">
+    
+    <p style="text-align:left; font-size: 20px; font-weight: bold;">Complexity Treemap</p>
+    
+    <!-- Container for the treemap -->
+    {{ treemapComplexity_html|safe }}
+  <p style="text-align:right; font-weight: bolder;">*Based on complexity treemap is been displayed</p>
+  </div>
+  <!-- Grid Details container -->
+  <div class="div1" id="div1">
+  <div class="inline-all-container" >
+<!-- Grid Container -->
+<div class="full-grid-container" >
+  <div class="container" style="padding-top: 20px;">
+    <div class="item" onclick="clickApexClass()" style="background: linear-gradient(to right, #d12c03, #feb47b);">
+      <div class="item-title">Apex Classes</div>
+      <div class="item-price">{{ apex_class_count }}</div>
+      
+    </div>
+    <div class="item" onclick="clickFlow()">
+        <div class="item-title">Flows</div>
+        <div class="item-price">{{ flow_count }}</div>
+        
+    </div>
+    <div class="item" onclick="clickApexTrigger()" style="background: linear-gradient(to right, #588d02, #b8f15b);">
+        <div class="item-title">Apex Triggers</div>
+        <div class="item-price">{{ apex_trigger_count }}</div>
+        
+    </div>
+    <div class="item" onclick="clickLWC()">
+        <div class="item-title">Lightning Web Components</div>
+        <div class="item-price">{{ lightning_component_count }}</div>
+        
+    </div>
+    </div>
+    <div class="container" style="padding-top: 20px;">
+        <div class="item" onclick="clickCustomObjects()">
+          <div class="item-title">Custom Objects</div>
+          <div class="item-price">{{ custom_object_count }}</div>
+          
+        </div>
+        <div class="item" onclick="clickCustomPermissionSets()">
+            <div class="item-title">Custom Permission Sets</div>
+            <div class="item-price">{{ custom_permission_set_count }}</div>
+            
+        </div>
+        <div class="item" onclick="clickCustomLabels()">
+            <div class="item-title" >Custom Labels</div>
+            <div class="item-price">{{ custom_labels_count }}</div>
+        </div>
+        <div class="item" onclick="clickCustomTabs()">
+            <div class="item-title">Custom tabs</div>
+            <div class="item-price">{{ custom_tab_count }}</div>
+        </div>
+        </div>
+        <div class="container" style="padding-top: 20px;">
+          <div class="item" onclick="clickRoles()">
+            <div class="item-title">Roles</div>
+            <div class="item-price">{{ role_count }}</div>
+          </div>
+          <div class="item" onclick="clickGlobalValueSets()">
+              <div class="item-title">Global Value Sets</div>
+              <div class="item-price">{{ global_value_set_count }}</div>
+          </div>
+          <div class="item" onclick="clickCustomApplications()">
+              <div class="item-title">Custom Applications</div>
+              <div class="item-price">{{ Custom_Application_count }}</div>
+          </div>
+          <div class="item" onclick="clickCustomNotificationTypes()">
+              <div class="item-title">Custom Notification Types</div>
+              <div class="item-price">{{ Custom_Notification_Type_count }}</div>
+          </div>
+          </div>
+          <div class="container" style="padding-top: 20px;">
+            <div class="item" onclick="clickPageLayout()">
+              <div class="item-title">Page Layouts</div>
+              <div class="item-price">{{ page_layout_count }}</div>
+            </div>
+            <div class="item" onclick="clickProfiles()">
+                <div class="item-title">Profiles</div>
+                <div class="item-price">{{ Profile_count }}</div>
+            </div>
+            <div class="item" onclick="clickWorkFlowFieldUpdates()">
+                <div class="item-title">WorkFlow FieldUpdates</div>
+                <div class="item-price">{{ WorkFlow_FieldUpdate_count }}</div>
+            </div>
+            <div class="item" onclick="clickWorkFlowAlerts()">
+                <div class="item-title">WorkFlow Alerts</div>
+                <div class="item-price">{{ workFlow_alert_count }}</div>
+            </div>
+            </div>
+            <div class="container" style="padding-top: 20px;">
+              <div class="item" onclick="clickContentAssets()">
+                <div class="item-title">ContentAssets</div>
+                <div class="item-price">{{ ContentAsset_count }}</div>
+              </div>
+              <div class="item" onclick="clickFlexipages()">
+                  <div class="item-title">flexipages</div>
+                  <div class="item-price">{{ flexipage_count }}</div>
+              </div>
+              <div class="item" onclick="clickDuplicateRules()">
+                  <div class="item-title">DuplicateRules</div>
+                  <div class="item-price">{{ DuplicateRule_count }}</div>
+              </div>
+              <div class="item" onclick="clickEmailtemplates()">
+                  <div class="item-title">Email Templates</div>
+                  <div class="item-price">{{ EmailTemplate_count }}</div>
+              </div>
+              </div>
+              <div class="container" style="padding-top: 20px;">
+                <div class="item" onclick="clickProcessBuilders()">
+                  <div class="item-title">Process Builders</div>
+                  <div class="item-price">{{ ProcessDefinition_count }}</div>
+                </div>
+                <div class="item" onclick="clickQueues()">
+                    <div class="item-title">Queues</div>
+                    <div class="item-price">{{ Group_count }}</div>
+                </div>
+                <div class="item" onclick="clickStaticResources()">
+                    <div class="item-title">Static Resources</div>
+                    <div class="item-price">{{ StaticResource_count }}</div>
+                </div>
+                <div class="item" onclick="clickVeevaObjects()" style="background: linear-gradient(to right, #ff7e5f, #feb47b);">
+                  <div class="item-title">Veeva Objects</div>
+                  <div class="item-price">{{ VeevaObject_count }}</div>
+              </div>
+                
+                </div>
+    </div>
+    <!-- grid-details-container -->
+    <div class="grid-details-container">
+      <table id="detailTable">
+            
+              <tr>
+                <th id="componentNameHeader">Component Name</th>
+                <th>Complexity</th>
+              </tr>
+      </table>
+     
+     
+
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-geo-assets/plotlyexpress.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" ></script>
+<script src="../static/script.js"></script>
+</body>
+</html>

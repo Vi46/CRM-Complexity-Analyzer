@@ -1,0 +1,72 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #0872b9; /* Background color */
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 15px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;   
+  }
+
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 300px; /* Set a fixed width */
+    text-align: center;
+    margin: 100px;
+    margin-top: 20px;
+  }
+
+input,select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 1px solid #3498db; /* Border color */
+    border-radius: 5px;
+    background-color: #ecf0f1; /* Input background color */
+  }
+
+button {
+    
+    width: 300px;
+    padding: 12px 20px;
+    background-image: linear-gradient(#0dccea, #0d70ea);
+    border: 0;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: Montserrat,sans-serif;
+    font-size: .9em;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+
+.salesforce-logo {
+    color: #3498db; /* Salesforce logo color */
+    font-size: 68px;
+    margin-bottom: 20px;
+  }
+
+.left{
+    background-color: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+    height: fit-content;
+  }
+
+.login-image{
+    height: fit-content;
+    
+  }
+
+  
+  

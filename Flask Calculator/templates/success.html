@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #dcf1fa;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #00a1e0;
+        }
+        .flexipages {
+            margin-top: 20px;
+        }
+        .flexipage {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flexipages Information</h1>
+
+    <div class="flexipages">
+        {% for flexipage in flexipages %}
+            <div class="flexipage">
+                <strong>Flexipage ID:</strong> {{ flexipage['Id'] }}<br>
+                <strong>Developer Name:</strong> {{ flexipage['DeveloperName'] }}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
