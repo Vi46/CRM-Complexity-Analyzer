@@ -1,0 +1,8 @@
+username = 'vishaldev@cct.com'
+    password = 'Pluto#21'
+    security_token = 'sSk5ZBgYkTdTPSdTer9ZiHky'
+    'client_id': '3MVG9wt4IL4O5wvKWCHOWdmDDMQZcUh18IfDSt5w2u4QqgJEHMQ2UGabXj5ZQ5Oj7T4KFhYJ4Lny1NStxGFwT',
+        'client_secret': '753278BB635DEB1A69B7D67894AFC5F3DFA091330562C3A1F13F23FDDEF905F5',
+
+
+https://cloudchamptechnologies16-dev-ed.my.salesforce.com/secur/frontdoor.jsp?sid=00D5i000008BJjh!ARsAQKEzuDyE1d3HJmLBNjVaZtX8R05nSPcq.nneGcYc2RdVzCuG1CNEJhBi0dNRCoqvoQr4UeJYDkS.mu5Droym4coGv9Gd&retURL=https://cloudchamptechnologies16-dev-ed.my.salesforce.com/01p5i00000HZTQ3.jsp

@@ -1,0 +1,506 @@
+body {
+    font-family: Arial,Helvetica, sans-serif;
+}
+
+/* h1{
+    background: -webkit-linear-gradient(0deg, #000000 0%, #48abe0 100%);
+    
+    -webkit-text-fill-color: transparent;
+} */
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+}
+
+.item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 10px 10px 15px lightblue;
+    border-style: outset;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    
+}
+
+.item:nth-child(odd) {
+    background-color: white;
+}
+
+.item:hover{
+    background-color: #CDF5FD;
+    transform: scale(1.1);
+    
+}
+
+.item-title {
+    height: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.item-price {
+    margin-top: 20px;
+    height: fit-content;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 55px;
+    color: #001133;
+    text-shadow: 2px 2px #080808;
+    
+}
+
+.item-button {
+    height: 15px;
+    width: 100px;
+    line-height: 15px;
+    text-decoration: underline;
+    font-size: 15px;
+}
+
+.inline-all-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+.full-grid-container{
+    height: fit-content;
+    width: 900px;
+    /* border: 2px solid #008CBA; */
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 5px;
+    
+  }
+
+.grid-details-container{
+    width: 320px;
+    border: solid 2px #89CFF3;
+    border-radius: 5px;
+    margin-top: 0px;
+    border-style: inset;
+    display: none;
+    overflow-y: auto;
+    max-height: 600px;
+    
+}
+
+.grid-button:hover{
+    color: black;
+}
+
+.table-button:hover{
+    color: black;
+}
+
+.download-csv-button:hover{
+    color: black;
+}
+
+.graph-button:hover{
+    color: black;
+}
+
+.tree-map-button:hover{
+  color: black;
+}
+
+.outline-all-container{
+    /* Adjust the height as needed */
+    border: 20px solid transparent; /* Set the border width and make it transparent */
+    border-image: linear-gradient(90deg, #000000 0%, #48abe0 100%);
+    border-image-slice: 1; 
+    /* padding: 10px; */
+}
+
+.item-details{
+    padding-left:10px;
+}
+
+.item-details-title{
+    margin-top: 0px;
+    background-color: #00A9FF;
+    padding: 10px;
+    color: white;
+}
+
+
+
+/* CSS */
+.div1{
+    display: block;
+    padding: 20px;
+    margin-bottom: 10px;
+    height: fit-content;
+} 
+
+.div2{
+  display: none;
+  padding: 20px;
+  margin-bottom: 10px;
+  height: fit-content;
+  width: min-content;
+}
+
+.div2 .high {
+background-color: #FF211F; 
+}
+
+.div2 .medium {
+background-color: #FFBF00; 
+}
+
+.div2 .low {
+background-color: #47B649; 
+}
+
+.div3{
+    display: none;
+    height: fit-content; 
+    padding: 20px;
+    margin-bottom: 10px;
+    /* text-align:right; */
+}
+
+.div3-header{
+    text-align: left;
+}
+
+h2 {
+    color: #333;
+}
+
+.table_container{
+  margin-right: 20px;
+}
+
+.table_container table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    box-shadow:rgba(0, 0, 0, .3) 0 5px 10px ;
+    margin-right: 330px;
+}
+
+.table_container th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    
+}
+
+.table_container th {
+    
+    background-image: linear-gradient(#0dccea, #0d70ea);
+}
+  
+.table_container tr:hover {
+      background-color: #f5f5f5;
+    }
+    
+    /* Excel-like styling */
+.table_container td {
+        
+        overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+  }
+  
+  /* Optional: Add some additional styling for specific columns */
+.table_container td:nth-child(1), th:nth-child(1) {
+      min-width: 150px;
+    }
+    
+.table_container td:nth-child(2), th:nth-child(2) {
+      min-width: 100px;
+    }
+
+    .header{
+        background: -webkit-linear-gradient(0deg, #000000 0%, #48abe0 100%);
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+        
+    }
+    
+    
+    .button-container {
+        display: flex; /* Make the container a flex container */
+    justify-content: left; /* Center the flex items horizontally */
+    background-color: #ddd;
+     /* Add some margin if needed */
+    }
+    
+    .button-container button:active {
+        background-image: #ccc;
+    }
+    
+    .button-container button{
+    padding:10px 22px;
+    background-image: linear-gradient(#0dccea, #0d70ea);
+    border: 0; 
+    box-shadow: rgba(0, 0, 0, .3) 0 5px 15px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: Montserrat,sans-serif;
+    font-size: .9em;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+ 
+  /* Style the dropdown container (position it relative and hide its overflow) */
+  .dropdown {
+    position: relative;
+    /* display: inline-block; */
+  }
+  
+  /* Style the dropdown content (hidden by default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9; /* Light grey background color */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  /* Style the dropdown links */
+  .dropdown-content a {
+    color: black;
+    font-size: x-small;
+    padding:10px 22px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color on hover */
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Show the dropdown content when the button is clicked */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .div4{
+    display: none;
+    height: fit-content; 
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+
+  .legends_table_container {
+    max-width: 400px; /* Set a maximum width for the container */
+    margin: 0 auto; /* Center the container on the page */
+  }
+  
+  .legends_table_container table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    box-shadow: rgba(0, 0, 0, .3) 0 5px 10px;
+  }
+  
+  .legends_table_container th, .legends_table_container td {
+    border: 1px solid #ddd;
+    padding: 5px; /* Adjust the padding to reduce the height */
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    font-size: 12px; /* Adjust the font size to reduce the height */
+  }
+  
+  .legends_table_container th {
+    background-image: linear-gradient(#0dccea, #0d70ea);
+  }
+  
+  .legends_table_container tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Optional: Add some additional styling for specific columns */
+  .legends_table_container td:nth-child(1), th:nth-child(1) {
+    min-width: 150px;
+  }
+  
+  .legends_table_container td:nth-child(2), th:nth-child(2) {
+    min-width: 100px;
+  }
+
+  .grid-details-container table{
+    word-break: break-all;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    box-shadow: rgba(0, 0, 0, .3) 0 5px 10px;
+  }
+
+  .grid-details-container th, .grid-details-container td {
+    border: 1px solid #ddd;
+    padding: 5px; /* Adjust the padding to reduce the height */
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    font-size: 12px; /* Adjust the font size to reduce the height */
+  }
+  
+  
+  .grid-details-container th {
+    background-image: linear-gradient(#0dccea, #0d70ea);
+    overflow: hidden;
+  }
+
+  .grid-details-container td {
+    cursor: pointer;
+  }
+  
+  .grid-details-container tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Optional: Add some additional styling for specific columns */
+  .grid-details-container td:nth-child(1), th:nth-child(1) {
+    min-width: 150px;
+  }
+  
+  .grid-details-container td:nth-child(2), th:nth-child(2) {
+    min-width: 100px;
+  }
+
+  .div5{
+    display: none;
+    height: fit-content; 
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+  
+.complexity_indicator{
+    width: 320px;
+    /* border: solid 2px #89CFF3; */
+    border-radius: 5px;
+    margin-top: 0px;
+    border-style: none;
+    display: block;
+    height: fit-content;
+    margin-left: auto;
+}
+
+.complexity_indicator table{
+    
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    box-shadow: rgba(0, 0, 0, .3) 0 5px 10px;
+}
+
+.complexity_indicator th, .complexity_indicator td {
+  border: 1px solid #ddd;
+  background-color: white;
+  padding: 5px; /* Adjust the padding to reduce the height */
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  font-size: 12px; /* Adjust the font size to reduce the height */
+}
+
+.complexity_indicator td {
+  background-color: white;
+}
+.complexity_indicator th {
+  background-image: linear-gradient(#0dccea, #0d70ea);
+}
+
+.complexity_indicator tr:hover {
+  background-color: #f5f5f5;
+}
+
+.overall_complexity{
+  background-color: white;
+  width: auto;
+  padding: 5px;
+  text-align: center;
+  font-weight: bolder;
+  
+}
+
+.help_icon {
+  
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.help_text {
+  display: none;
+  position: absolute;
+  font-weight: 300;
+  font-size: small;
+  right: 0;
+  padding: 5px;
+  background-color: rgb(212, 236, 247);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.overall_complexity:hover .help_text {
+  display: block;
+}
+
+
+/* CSS for the popup */
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 70%;
+  max-width: 500px;
+}
+
+.close-btn {
+  color: #aaa;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: #000;
+}
+
+.popSpan{
+  color: #0d70ea;
+  font-weight: bold;
+}
+
+

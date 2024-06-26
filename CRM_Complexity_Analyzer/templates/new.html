@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM Report</title>
+
+
+  <link rel="stylesheet" href="../static/new.css">
+</head>
+<body>
+  <!-- This is your custom popup -->
+<div id="customPopup" class="popup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <div id="popupContent"></div>
+  </div>
+</div>
+
+  <div class="header">
+   
+    <div>
+    <img src="../static/ris-logo-white.png" alt="Organization Logo" width="140" height="60" ></div>
+    <div >
+    <h1  style="color: white; font-weight: 900;margin-top: 0px; text-align: right; opacity: 0.5;">CRM Complexity Analyzer</h1>
+    </div>
+    <div>
+    <p style="color: white; font-size: medium; text-align: left;">
+      <img src="../static/user.png" alt="User Icon" width="25" height="25" style="vertical-align: middle; margin-right: 5px;">{{username}}</p>
+    <p id="org_typeId" style="color: white; font-size: medium; text-align: left;">{{fe_org_type}}</p>
+    <p id="divId" style="color: white; font-size: medium; text-align: left;"><b>Org Complexity:</b> {{overall_rating}}</p>
+    </div> 
+    <div class="complexity_indicator" id="complexity_indicator">
+      <table>
+        <tr>
+          <th>Overall Complexity</th>
+          <th>Indicator</th>
+          <th>Color</th>
+        </tr>
+        <tr>
+          <td><65</td>
+          <td>Low</td>
+          <td style="background-color: #47B649;"></td>
+        </tr>
+        <tr>
+          <td>65-90</td>
+          <td>Medium</td>
+          <td style="background-color: #FFBF00;"></td>
+        </tr>
+        <tr>
+          <td>>90</td>
+          <td>High</td>
+          <td style="background-color: #FF211F;"></td>
+        </tr>
+      </table>
+      <div class="overall_complexity" id="overall_complexity" data-overall-rating="{{overall_rating_comment}}">Overall Complexity : {{overall_rating_comment}}
+        <span class="help_icon">&#9432;</span>
+    <div class="help_text">
+        Based on each component rating, <br>
+        the overall complexity of CRM is displayed.
+    </div>
+      </div>
+     
+    </div>
+  </div>
+  <div class="outline-all-container">
+    <div class="button-container">
+  <button class="grid-button" onclick="gridClick()" id="gridBtn">Home<img src="../static/home_icon.png" alt="Home Icon" width="13" height="13" style="margin-left: 5px;"></button>
+  <button class="table-button" onclick="tableClick()" id="tableBtn">Table</button>
+  <button class="graph-button" onclick="graphClick()" id="graphBtn">Graph</button>
+  <div class="dropdown">
+    <button class="tree-map-button" onclick="treeMapComplexityViewClick()" id="treemapBtn">Tree View</button>
+    <div class="dropdown-content">
+      <!-- Add your dropdown items here -->
+      <a href="#" onclick="treeMapCountViewClick()">Count View </a>
+      <a href="#" onclick="treeMapComplexityViewClick()">Complexity View </a>
+     
+    </div>
+  </div>
+  <form action="{{ url_for('download_csv') }}" method="get">
+    <button type="submit" class="download-csv-button" id="downloadBtn">Download </button>
+</form>
+</div>
+  <div class="div2" id="div2">
+    <h2>Tabular Report</h2>
+  <div style="display: flex;">
+  <div class="table_container">
+
+    <table>
+      <tr>
+        <th>Component</th>
+        <th>Count</th>
+        <th>Rating</th>
+        <th>
+          <label for="complexity-filter">Complexity</label>
+          <select name="complexity-filter" id="complexity-filter" onchange="filterreport()">
+            <option value="all">All</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </th>
+      </tr>
+   
+      {% set metadata_list = [
+        {'type': 'Apex Classes', 'count': apex_class_count, 'rating': apex_class_rating},
+        {'type': 'Flows', 'count': flow_count, 'rating': flow_rating},
+        {'type': 'Apex Triggers', 'count': apex_trigger_count, 'rating': trigger_rating},
+        {'type': 'Lightning Web Components', 'count': lightning_component_count, 'rating': lwc_rating},
+        {'type': 'Custom Objects', 'count': custom_object_count, 'rating': customObject_rating},
+        {'type': 'Custom Permission Sets', 'count': custom_permission_set_count, 'rating':customPermissionSet_rating},
+        {'type': 'Custom Labels', 'count': custom_labels_count, 'rating': customlabel_rating},
+        {'type': 'Custom Tabs', 'count': custom_tab_count, 'rating': customtab_rating},
+        {'type': 'Roles', 'count': role_count, 'rating': role_rating},
+        {'type': 'Global Value Sets','count':  global_value_set_count,'rating':global_value_set_rating},
+        {'type': 'Custom Applications','count':Custom_Application_count,'rating':customApplication_rating},
+        {'type':'Custom Notification Types','count':Custom_Notification_Type_count,'rating':customNotification_rating},
+        {'type':'Page Layouts','count':page_layout_count,'rating':page_rating},
+        {'type':'Profiles','count':Profile_count,'rating':Profile_rating},
+        {'type':'WorkFlowFieldUpdates','count':WorkFlow_FieldUpdate_count,'rating':WorkFlow_FieldUpdate_rating},
+        {'type':'workFlow_alerts','count':workFlow_alert_count,'rating':workFlow_alert_rating},
+        {'type':'ContentAssets','count':ContentAsset_count,'rating':ContentAsset_rating},
+        {'type':'flexipages','count':flexipage_count,'rating':flexipage_rating},
+        {'type':'DuplicateRules','count':DuplicateRule_count,'rating':DuplicateRule_rating},
+        {'type':'MatchingRule','count':MatchingRule_count,'rating':MatchingRule_rating},
+        {'type':'EmailTemplates','count':EmailTemplate_count,'rating':EmailTemplate_rating},
+        {'type':'ProcessBuilders','count':ProcessDefinition_count,'rating':ProcessDefinition_rating},
+        {'type':'Queues','count':Group_count,'rating':Group_rating},
+        {'type':'StaticResources','count':StaticResource_count,'rating':StaticResource_rating},
+        {'type':'VeevaObject','count':VeevaObject_count,'rating':VeevaObject_rating}
+
+      ] %}
+  
+  {% for metadata in metadata_list %}
+  {% set rating_class = '' %}
+  {% if metadata['rating'] is defined %}
+    {% if metadata['rating'][1] == 'High' %}
+      {% set rating_class = 'high' %}
+    {% elif metadata['rating'][1] == 'Medium' %}
+      {% set rating_class = 'medium' %}
+    {% elif metadata['rating'][1] == 'Low' %}
+      {% set rating_class = 'low' %}
+    
+    {% endif %}
+  {% endif %}
+        <tr>
+          <td>{{ metadata['type'] }}</td>
+          <td>{{ metadata['count'] }}</td>
+          <td>{{ metadata['rating'][0] }}</td>
+          <td class="{{ rating_class }}">{{ metadata['rating'][1] }}</td>
+        </tr>
+      {% endfor %}
+  </table>
+  </div>
+  <div class="legends_table_container">
+ 
+  <table>
+    <tr>
+      <th>Component</th>
+      <th>1-50 <br>count(Low)</th>
+      <th>50-100 count(Medium)</th>
+      <th>>100 count(High)</th>
+    </tr>
+    <tr>
+      <td class="metadata-values">
+        <ul>
+          <li>Apex Class </li>
+          <li>Trigger </li>
+          <li>LWC </li>
+          <li>Flow </li>
+          <li>Page </li>
+        </ul>
+      </td>
+      <td>2.5pts</td>
+      <td>7.5pts</td>
+      <td>10pts</td>
+    </tr>
+    <tr>
+      <td class="metadata-values">
+        <ul>
+        <li>Custom Object </li>
+        <li>PermissionSet </li>
+        <li>Custom Label </li>
+        <li>Custom Tab </li>
+        <li>Custom Application </li>
+        <li>Custom Notification </li>
+      </ul>
+      </td>
+      <td>1.75pts</td>
+      <td>5.25pts</td>
+      <td>7pts</td>
+    </tr>
+    <tr>
+      <td class="metadata-values">
+        <ul>
+          <li>Role</li>
+          <li>Global Value Set</li>
+          <li>Profile</li>
+          <li>WorkFlow FieldUpdate </li>
+          <li>workFlow Alert</li>
+          <li>ContentAsset</li>
+          <li>Flexipage</li>
+          <li>Duplicate Rule</li>
+          <li>Matching Rule</li>
+          <li>Email Template</li>
+          <li>Process Definition</li>
+          <li>Group</li>
+          <li>Static Resource</li>
+          <li>Veeva Object</li>
+        </ul>
+      </td>
+      <td>1.25pts</td>
+      <td>3.75pts</td>
+      <td>5pts</td>
+    </tr>
+  </table>
+  <ul >
+    <li>Based on each component count points are assigned</li>
+  </ul>
+</div>
+</div>
+  </div>
+  <!-- div 3 -->
+  <div class="div3" id="div3">
+   
+    <p style="text-align:left; font-size: 20px; font-weight: bold;">Counts Treemap</p>
+   
+    <!-- Container for the treemap -->
+    {{ treemap_html|safe }}
+  <p style="text-align:right; font-weight: bolder;">*Based on count treemap is been displayed</p>
+  </div>
+  <div class="div4" id="div4">
+   
+    <p style="text-align:left; font-size: 20px; font-weight: bold;">Complexity Treemap</p>
+   
+    <!-- Container for the treemap -->
+    {{ treemapComplexity_html|safe }}
+  <p style="text-align:right; font-weight: bolder;">*Based on complexity treemap is been displayed</p>
+  </div>
+  <div class="div5" id="div5">
+    <p style="text-align:left; font-size: 20px; font-weight: bold;">Component count & Rating Graph</p>
+   
+    <!-- Container for the treemap -->
+    {{ graph_html|safe }}
+  <p style="text-align:right; font-weight: bolder;">*Based on complexity & count graph is been displayed</p>
+  </div>
+  <!-- Grid Details container -->
+  <div class="div1" id="div1">
+  <div class="inline-all-container" >
+<!-- Grid Container -->
+<div class="full-grid-container">
+  <div class="container" style="padding-top: 20px;">
+
+    <!-- Apex Classes -->
+    <div class="item" onclick="clickApexClass()" data-rating="{{ apex_class_rating[1] }}" data-class-metrics="{{class_metrics_list}}">
+      <div class="item-title">Apex Classes</div>
+      <div class="item-price">{{ apex_class_count }}</div>
+    </div>
+
+    <!-- Flows -->
+    <div class="item" onclick="clickFlow()" data-rating="{{ flow_rating[1] }}">
+      <div class="item-title">Flows</div>
+      <div class="item-price">{{ flow_count }}</div>
+    </div>
+
+    <!-- Apex Triggers -->
+    <div class="item" id="item" onclick="clickApexTrigger()" data-rating="{{ trigger_rating[1] }}" data-trigger-metrics="{{trigger_metrics_list}}">
+      <div class="item-title">Apex Triggers</div>
+      <div class="item-price">{{ apex_trigger_count }}</div>
+    </div>
+
+    <!-- Lightning Web Components -->
+    <div class="item" onclick="clickLWC()" data-rating="{{ lwc_rating[1] }}">
+      <div class="item-title">Lightning Web Components</div>
+      <div class="item-price">{{ lightning_component_count }}</div>
+    </div>
+
+  </div>
+
+  <div class="container" style="padding-top: 20px;">
+
+    <!-- Custom Objects -->
+    <div class="item" onclick="clickCustomObjects()" data-rating="{{ customObject_rating[1] }}">
+      <div class="item-title">Custom Objects</div>
+      <div class="item-price">{{ custom_object_count }}</div>
+    </div>
+
+    <!-- Custom Permission Sets -->
+    <div class="item" onclick="clickCustomPermissionSets()" data-rating="{{ customPermissionSet_rating[1] }}">
+      <div class="item-title">Custom Permission Sets</div>
+      <div class="item-price">{{ custom_permission_set_count }}</div>
+    </div>
+
+    <!-- Custom Labels -->
+    <div class="item" onclick="clickCustomLabels()" data-rating="{{ customlabel_rating[1] }}">
+      <div class="item-title">Custom Labels</div>
+      <div class="item-price">{{ custom_labels_count }}</div>
+    </div>
+
+    <!-- Custom Tabs -->
+    <div class="item" onclick="clickCustomTabs()" data-rating="{{ customtab_rating[1] }}">
+      <div class="item-title">Custom Tabs</div>
+      <div class="item-price">{{ custom_tab_count }}</div>
+    </div>
+
+  </div>
+
+  <div class="container" style="padding-top: 20px;">
+
+    <!-- Roles -->
+    <div class="item" onclick="clickRoles()" data-rating="{{ role_rating[1] }}">
+      <div class="item-title">Roles</div>
+      <div class="item-price">{{ role_count }}</div>
+    </div>
+
+    <!-- Global Value Sets -->
+    <div class="item" onclick="clickGlobalValueSets()" data-rating="{{ global_value_set_rating[1] }}">
+      <div class="item-title">Global Value Sets</div>
+      <div class="item-price">{{ global_value_set_count }}</div>
+    </div>
+
+    <!-- Custom Applications -->
+    <div class="item" onclick="clickCustomApplications()" data-rating="{{ customApplication_rating[1] }}">
+      <div class="item-title">Custom Applications</div>
+      <div class="item-price">{{ Custom_Application_count }}</div>
+    </div>
+
+    <!-- Custom Notification Types -->
+    <div class="item" onclick="clickCustomNotificationTypes()" data-rating="{{ customNotification_rating[1] }}">
+      <div class="item-title">Custom Notification Types</div>
+      <div class="item-price">{{ Custom_Notification_Type_count }}</div>
+    </div>
+
+  </div>
+
+  <div class="container" style="padding-top: 20px;">
+
+    <!-- Page Layouts -->
+    <div class="item" onclick="clickPageLayout()" data-rating="{{ page_rating[1] }}">
+      <div class="item-title">Page Layouts</div>
+      <div class="item-price">{{ page_layout_count }}</div>
+    </div>
+
+    <!-- Profiles -->
+    <div class="item" onclick="clickProfiles()" data-rating="{{ Profile_rating[1] }}">
+      <div class="item-title">Profiles</div>
+      <div class="item-price">{{ Profile_count }}</div>
+    </div>
+
+    <!-- Workflow Field Updates -->
+    <div class="item" onclick="clickWorkFlowFieldUpdates()" data-rating="{{ WorkFlow_FieldUpdate_rating[1] }}">
+      <div class="item-title">Workflow Field Updates</div>
+      <div class="item-price">{{ WorkFlow_FieldUpdate_count }}</div>
+    </div>
+
+    <!-- Workflow Alerts -->
+    <div class="item" onclick="clickWorkFlowAlerts()" data-rating="{{ workFlow_alert_rating[1] }}">
+      <div class="item-title">Workflow Alerts</div>
+      <div class="item-price">{{ workFlow_alert_count }}</div>
+    </div>
+
+  </div>
+
+  <div class="container" style="padding-top: 20px;">
+
+    <!-- Content Assets -->
+    <div class="item" onclick="clickContentAssets()" data-rating="{{ ContentAsset_rating[1] }}">
+      <div class="item-title">Content Assets</div>
+      <div class="item-price">{{ ContentAsset_count }}</div>
+    </div>
+
+    <!-- Flexipages -->
+    <div class="item" onclick="clickFlexipages()" data-rating="{{ flexipage_rating[1] }}">
+      <div class="item-title">Flexipages</div>
+      <div class="item-price">{{ flexipage_count }}</div>
+    </div>
+
+    <!-- Duplicate Rules -->
+    <div class="item" onclick="clickDuplicateRules()" data-rating="{{ DuplicateRule_rating[1] }}">
+      <div class="item-title">Duplicate Rules</div>
+      <div class="item-price">{{ DuplicateRule_count }}</div>
+    </div>
+
+    <!-- Matching Rules -->
+    <div class="item" onclick="clickMatchingRules()" data-rating="{{ MatchingRule_rating[1] }}">
+      <div class="item-title">Matching Rules</div>
+      <div class="item-price">{{ MatchingRule_count }}</div>
+    </div>
+
+  </div>
+
+  <div class="container" style="padding-top: 20px;">
+
+    <!-- Process Builders -->
+    <div class="item" onclick="clickProcessBuilders()" data-rating="{{ ProcessDefinition_rating[1] }}">
+      <div class="item-title">Process Builders</div>
+      <div class="item-price">{{ ProcessDefinition_count }}</div>
+    </div>
+
+    <!-- Queues -->
+    <div class="item" onclick="clickQueues()" data-rating="{{ Group_rating[1] }}">
+      <div class="item-title">Queues</div>
+      <div class="item-price">{{ Group_count }}</div>
+    </div>
+
+    <!-- Email Templates -->
+    <div class="item" onclick="clickEmailtemplates()" data-rating="{{ EmailTemplate_rating[1] }}">
+      <div class="item-title">Email Templates</div>
+      <div class="item-price">{{ EmailTemplate_count }}</div>
+    </div>
+
+    <!-- Static Resources -->
+    <div class="item" onclick="clickStaticResources()" data-rating="{{ StaticResource_rating[1] }}">
+      <div class="item-title">Static Resources</div>
+      <div class="item-price">{{ StaticResource_count }}</div>
+    </div>
+
+  </div>
+
+  <div class="container" style="padding-top: 20px;">
+
+    <!-- Veeva Objects -->
+    <div class="item" onclick="clickVeevaObjects()" data-rating="{{ VeevaObject_rating[1] }}">
+      <div class="item-title">Veeva Objects</div>
+      <div class="item-price">{{ VeevaObject_count }}</div>
+    </div>
+
+    <!-- integration Objects -->
+    <div class="item" onclick="clickIntegration()" style="background-color: #47B649;">
+      <div class="item-title">Integration</div>
+      <div class="item-price">{{ overall_count_integeration }}</div>
+    </div>
+
+  </div>
+
+</div>
+
+    <!-- grid-details-container -->
+    <div class="grid-details-container" id="grid-details-container">
+      <table id="detailTable">
+          <thead>
+              <tr>
+                  <th id="componentNameHeader">Component Name</th>
+                  <th id="complexityLevelHeader">
+                      <label for="complexityFilter">Complexity Level</label>
+                      <select id="complexityFilter" onchange="filterTable()">
+                          <option value="">All</option>
+                          <option value="low">Low</option>
+                          <option value="medium">Medium</option>
+                          <option value="high">High</option>
+                      </select>
+                  </th>
+              </tr>
+          </thead>
+      </table>
+
+    </div>
+    
+    
+    <!-- <div class="complexity_indicator" id="complexity_indicator">
+      <table>
+        <tr>
+          <th>Overall Complexity</th>
+          <th>Indicator</th>
+          <th>Color</th>
+        </tr>
+        <tr>
+          <td><35</td>
+          <td>Low</td>
+          <td style="background-color: #47B649;"></td>
+        </tr>
+        <tr>
+          <td>35-60</td>
+          <td>Medium</td>
+          <td style="background-color: #FFBF00;"></td>
+        </tr>
+        <tr>
+          <td>>60</td>
+          <td>High</td>
+          <td style="background-color: #FF211F;"></td>
+        </tr>
+      </table>
+      <div class="overall_complexity" id="overall_complexity" data-overall-rating="{{overall_rating_comment}}">Overall Complexity : {{overall_rating_comment}}
+        <span class="help_icon">&#9432;</span>
+    <div class="help_text">
+        Based on each component rating, <br>
+        the overall complexity of CRM is displayed.
+    </div>
+      </div>
+     
+    </div> -->
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-geo-assets/plotlyexpress.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" ></script>
+<script src="../static/script.js"></script>
+</body>
+</html>
